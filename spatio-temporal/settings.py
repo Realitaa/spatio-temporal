@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django_vite",
     "inertia",
-    
+    "canvas",
 ]
 
 MIDDLEWARE = [

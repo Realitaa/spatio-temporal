@@ -7,6 +7,7 @@ const menu = [
   {
     label: 'Kanvas Baru',
     icon: 'i-lucide-pencil',
+    to: '/canvas'
   },
   {
     label: 'Dataset',
