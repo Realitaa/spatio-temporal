@@ -1,0 +1,24 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "TAILWIND_MODE=watch vite",
+    "build": "TAILWIND_MODE=build vite build"
+  },
+  "overrides": {
+    "vite": {
+      "rollup": "npm:@rollup/wasm-node"
+    }
+  },
+  "dependencies": {
+    "@inertiajs/vue3": "^3.0.2",
+    "@tailwindcss/vite": "^4.2.2",
+    "@vitejs/plugin-vue": "^6.0.5",
+    "axios": "^1.7.9",
+    "tailwindcss": "^4.2.2",
+    "vue": "^3.5.32"
+  },
+  "devDependencies": {
+    "vite": "^6.0.6"
+  }
+}
