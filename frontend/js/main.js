@@ -1,6 +1,7 @@
 // frontend/js/main.js
 import { createApp, h } from "vue";
 import { createInertiaApp } from "@inertiajs/vue3";
+import ui from '@nuxt/ui/vue-plugin'
 import axios from "axios";
 import Layout from "./layout/default.vue";
 import AppVue from "./App.vue";
@@ -23,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
         setup({ el, App, props, plugin }) {
             createApp({ render: () => h(AppVue, { inertiaApp: App, inertiaProps: props }) })
                 .use(plugin)
+								.use(ui)
                 .mount(el);
         },
     });

@@ -12,7 +12,9 @@ defineProps({
 </script>
 
 <template>
-    <div id="vue-root">
-        <component :is="inertiaApp" v-bind="inertiaProps" />
-    </div>
+    <UApp>
+        <div id="vue-root">
+            <component :is="inertiaApp" v-bind="inertiaProps" />
+        </div>
+    </UApp>
 </template>
