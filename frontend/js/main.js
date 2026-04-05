@@ -15,10 +15,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     createInertiaApp({
         page: initialPage,
+        layout: (name) => {
+            if (name.startsWith('Index')) {
+                return null
+            }
+            return Layout
+        },
         resolve: (name) => {
             const pages = import.meta.glob("./pages/**/*.vue", { eager: true });
             let page = pages[`./pages/${name}.vue`];
-            page.default.layout = page.default.layout || Layout;
             return page;
         },
         setup({ el, App, props, plugin }) {

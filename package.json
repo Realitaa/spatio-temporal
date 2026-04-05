@@ -16,8 +16,11 @@
     "@tailwindcss/vite": "^4.2.2",
     "@vitejs/plugin-vue": "^6.0.5",
     "axios": "^1.7.9",
+    "chart.js": "^4.5.1",
+    "katex": "^0.16.44",
     "tailwindcss": "^4.2.2",
-    "vue": "^3.5.32"
+    "vue": "^3.5.32",
+    "vue-chartjs": "^5.3.3"
   },
   "devDependencies": {
     "vite": "^6.0.6"

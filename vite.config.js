@@ -12,7 +12,7 @@ export default defineConfig((mode) => {
   const OUTPUT_DIR = "./frontend/dist";
 
   return {
-    plugins: [vue(), tailwindcss(), ui({ router: "inertia" })],
+    plugins: [vue(), tailwindcss(), ui({ router: "inertia", colorMode: false })],
     resolve: {
       alias: {
         "@": resolve(INPUT_DIR),
