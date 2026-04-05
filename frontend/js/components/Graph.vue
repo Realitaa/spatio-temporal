@@ -11,8 +11,10 @@ import {
   PointElement,
   Filler
 } from 'chart.js'
-import katex from 'katex'
-import 'katex/dist/katex.min.css'
+
+defineProps({
+  is_processing: Boolean
+})
 
 ChartJS.register(Title, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement, Filler)
 
@@ -65,18 +67,25 @@ const chartOptions = {
   <div class="mt-8 flex gap-4 w-full h-96">
     <UCard class="w-2/3 h-full flex flex-col" :ui="{ body: 'flex-1 min-h-0' }">
       <template #header>
-        <h2 class="text-xl font-bold">Grafik Aktivitas Spatio-Temporal</h2>
+        <h2 class="text-xl font-bold">
+          {{ is_processing ? 'Membuat Grafik Aktivitas....' : 'Grafik Aktivitas Spatio -Temporal' }}
+        </h2>
       </template>
-      <div class="h-72 relative w-full">
-        <Line :data="chartData" :options="chartOptions" />
+      <div class="h-72 relative w-full flex justify-center items-center">
+        <div v-if="is_processing" class="graphLoader"></div>
+        <Line v-else :data="chartData" :options="chartOptions" />
       </div>
     </UCard>
 
     <UCard class="w-1/3 h-full overflow-y-auto">
       <template #header>
-        <h2 class="text-xl font-bold">Interpretasi Grafik</h2>
+        <h2 class="text-xl font-bold">{{ is_processing ? 'Membuat Interpretasi....' : 'Interpretasi Grafik' }}</h2>
       </template>
-      <div class="space-y-4 text-gray-700 text-sm">
+      <div v-if="is_processing" class="flex flex-col gap-2">
+        <USkeleton v-for="i in 10" class="h-5" :style="{ width: `${110 - i * 10}%` }" />
+      </div>
+
+      <div v-else class="space-y-4 text-gray-700 text-sm">
         <p>Grafik di samping memvisualisasikan kepadatan aktivitas dalam video selama durasi 30 detik.</p>
         <p><strong>Sumbu X</strong> merepresentasikan waktu (detik), dan <strong>Sumbu Y</strong> menunjukkan skala
           kepadatan relatif yang diekstrak dari analisis pergerakan per frame.</p>
