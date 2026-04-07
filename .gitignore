@@ -30,3 +30,6 @@ pnpm-lock.yaml
 # Auto-generated type declarations
 auto-imports.d.ts
 components.d.ts
+
+# Uploaded files
+uploads/

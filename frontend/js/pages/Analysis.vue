@@ -20,7 +20,7 @@ const data = {
   total_intensity: '125.4 unit'
 }
 
-const is_processing = ref(true)
+const is_processing = ref(false)
 </script>
 
 <template>
