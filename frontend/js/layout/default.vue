@@ -1,9 +1,54 @@
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
+import { usePage } from "@inertiajs/vue3";
 import { useCanvasStore } from "../stores/canvas";
+import DeleteCanvasModal from "../components/DeleteCanvasModal.vue";
+
+const openDeleteModal = ref(false);
 
 const canvasStore = useCanvasStore();
 onMounted(() => canvasStore.fetchCanvases());
+
+const page = usePage();
+const pageProps = computed(() => page.props);
+
+// Canvas name inline edit
+const canvasName = ref("");
+const isEditingName = ref(false);
+const isSavingName = ref(false);
+
+watch(
+  () => pageProps.value.canvas_name,
+  (val) => {
+    canvasName.value = val ?? "";
+  },
+  { immediate: true },
+);
+
+const currentCanvasId = computed(() => pageProps.value.video_id ?? null);
+const isCanvasPage = computed(() => !!currentCanvasId.value);
+
+async function saveName() {
+  if (!currentCanvasId.value) return;
+  const trimmed = canvasName.value.trim();
+  if (!trimmed) return;
+  isSavingName.value = true;
+  try {
+    await canvasStore.renameCanvas(currentCanvasId.value, trimmed);
+    canvasName.value = trimmed;
+  } finally {
+    isSavingName.value = false;
+    isEditingName.value = false;
+  }
+}
+
+function onNameKeydown(e) {
+  if (e.key === "Enter") saveName();
+  if (e.key === "Escape") {
+    canvasName.value = pageProps.value.canvas_name ?? "";
+    isEditingName.value = false;
+  }
+}
 
 const open = ref(true);
 
@@ -144,7 +189,35 @@ const userItems = computed(() => [
           aria-label="Toggle sidebar"
           @click="open = !open"
         />
-        <span class="text-sm font-bold">Nama Kanvas</span>
+        <template v-if="isCanvasPage">
+          <UInput
+            v-if="isEditingName"
+            v-model="canvasName"
+            size="sm"
+            autofocus
+            :loading="isSavingName"
+            class="font-bold"
+            @blur="saveName"
+            @keydown="onNameKeydown"
+          />
+          <button
+            v-else
+            class="text-sm font-bold border border-default hover:border-black px-2 py-1 rounded-lg min-w-45 truncate max-w-xs text-left"
+            @click="isEditingName = true"
+          >
+            {{ canvasName || "Nama Kanvas" }}
+          </button>
+        </template>
+        <span v-else class="text-sm font-bold">Spatio-Temporal</span>
+        <div class="ml-auto" v-if="isCanvasPage">
+          <UButton
+            icon="i-lucide-trash-2"
+            color="error"
+            variant="ghost"
+            square
+            @click="openDeleteModal = true"
+          />
+        </div>
       </div>
 
       <div class="flex-1 p-4 z-5">
@@ -152,4 +225,10 @@ const userItems = computed(() => [
       </div>
     </div>
   </div>
+
+  <!-- Modal delete canvas -->
+  <DeleteCanvasModal
+    v-model:open="openDeleteModal"
+    :canvas-id="currentCanvasId"
+  />
 </template>

@@ -2,6 +2,8 @@
 import { createApp, h } from "vue";
 import { createInertiaApp } from "@inertiajs/vue3";
 import { createPinia } from "pinia";
+
+const pinia = createPinia();
 import ui from "@nuxt/ui/vue-plugin";
 import axios from "axios";
 import Layout from "./layout/default.vue";
@@ -32,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
         render: () => h(AppVue, { inertiaApp: App, inertiaProps: props }),
       })
         .use(plugin)
-        .use(createPinia())
+        .use(pinia)
         .use(ui)
         .mount(el);
     },
