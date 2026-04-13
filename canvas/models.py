@@ -13,8 +13,23 @@ class Canvas(models.Model):
     name = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    # ROI (dalam koordinat ORIGINAL video)
+    roi_x1 = models.IntegerField(null=True, blank=True)
+    roi_y1 = models.IntegerField(null=True, blank=True)
+    roi_x2 = models.IntegerField(null=True, blank=True)
+    roi_y2 = models.IntegerField(null=True, blank=True)
+
+
     def __str__(self):
         return self.name
+    
+    def has_roi(self):
+        return all([
+            self.roi_x1 is not None,
+            self.roi_y1 is not None,
+            self.roi_x2 is not None,
+            self.roi_y2 is not None,
+        ])
 
 
 class Video(models.Model):
@@ -29,6 +44,9 @@ class Video(models.Model):
 
     status = models.CharField(max_length=20, default="uploaded")
     progress = models.IntegerField(default=0)
+
+    width = models.IntegerField(null=True, blank=True)
+    height = models.IntegerField(null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
 
