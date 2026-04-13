@@ -4,7 +4,7 @@ import { ref } from 'vue'
 const links = ref([
     {
         label: 'Mulai',
-        to: '/canvas',
+        to: '/canvas/',
         icon: 'i-lucide-square-play'
     },
     {

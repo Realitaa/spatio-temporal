@@ -1,5 +1,6 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import ROISelectionDialog from '../components/ROISelectionDialog.vue'
 import VideowithInsight from '../components/VideowithInsight.vue'
 import Graph from '../components/Graph.vue'
 import Explanation from '../components/Explanation.vue'
@@ -21,9 +22,18 @@ const data = {
 }
 
 const is_processing = ref(false)
+const isROISelectionDialogOpen = ref(false)
+const thumbnailUrl = '/image.png'
+
+onMounted(() => {
+  setTimeout(() => {
+    isROISelectionDialogOpen.value = true
+  }, 1000)
+})
 </script>
 
 <template>
+  <ROISelectionDialog v-model:isOpen="isROISelectionDialogOpen" :thumbnailUrl="thumbnailUrl" />
   <VideowithInsight :is_processing="is_processing" :video_url="video_url" :data="data" />
   <Graph :is_processing="is_processing" />
   <Explanation :is_processing="is_processing" />
