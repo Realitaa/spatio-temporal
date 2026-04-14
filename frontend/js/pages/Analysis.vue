@@ -8,9 +8,12 @@ import Explanation from '../components/Explanation.vue'
 const props = defineProps({
   // is_processing: Boolean,
   video_id: String,
+  canvas_id: Number,
   canvas_name: String,
   has_roi: Boolean,
-  thumbnail_url: String
+  thumbnail_url: String,
+  original_width: Number,
+  original_height: Number
 })
 
 const video_url = `/media/videos/${props.video_id}.mp4`
@@ -33,10 +36,22 @@ onMounted(() => {
     isROISelectionDialogOpen.value = true
   }
 })
+
+function onROISaved() {
+  // ROI saved successfully — could trigger analysis or reload
+  isROISelectionDialogOpen.value = false
+}
 </script>
 
 <template>
-  <ROISelectionDialog v-model:isOpen="isROISelectionDialogOpen" :thumbnailUrl="thumbnailUrl" />
+  <ROISelectionDialog
+    v-model:isOpen="isROISelectionDialogOpen"
+    :thumbnailUrl="thumbnailUrl"
+    :canvasId="props.canvas_id"
+    :originalWidth="props.original_width"
+    :originalHeight="props.original_height"
+    @roi-saved="onROISaved"
+  />
   <VideowithInsight :is_processing="is_processing" :video_url="video_url" :data="data" />
   <Graph :is_processing="is_processing" />
   <Explanation :is_processing="is_processing" />

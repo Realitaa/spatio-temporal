@@ -64,3 +64,36 @@ def delete_canvas(request, canvas_id):
 
     canvas.delete()
     return JsonResponse({"message": "Canvas deleted successfully"})
+
+
+@require_http_methods(["POST"])
+def set_roi(request, canvas_id):
+    try:
+        canvas = Canvas.objects.get(id=canvas_id)
+    except Canvas.DoesNotExist:
+        return JsonResponse({"error": "Canvas not found"}, status=404)
+
+    try:
+        body = json.loads(request.body)
+        x1 = int(body["x1"])
+        y1 = int(body["y1"])
+        x2 = int(body["x2"])
+        y2 = int(body["y2"])
+    except (json.JSONDecodeError, KeyError, TypeError, ValueError):
+        return JsonResponse({"error": "Invalid payload. Required: x1, y1, x2, y2 (integers)"}, status=400)
+
+    if x1 >= x2 or y1 >= y2:
+        return JsonResponse({"error": "Invalid ROI: x1 must be < x2 and y1 must be < y2"}, status=400)
+
+    canvas.roi_x1 = x1
+    canvas.roi_y1 = y1
+    canvas.roi_x2 = x2
+    canvas.roi_y2 = y2
+    canvas.save(update_fields=["roi_x1", "roi_y1", "roi_x2", "roi_y2"])
+
+    # Update video status
+    video = canvas.video
+    video.status = "roi_set"
+    video.save(update_fields=["status"])
+
+    return JsonResponse({"status": "success", "canvas_id": canvas.id})

@@ -21,6 +21,10 @@ def generate_thumbnail(video):
     if not cap.isOpened():
         return
 
+    # Extract video dimensions
+    video.width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    video.height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+
     ret, frame = cap.read()
 
     if ret:

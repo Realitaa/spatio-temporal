@@ -9,4 +9,5 @@ urlpatterns = [
     path("<int:canvas_id>/rename/", views.rename_canvas, name="rename_canvas"),
     path("upload/", views.upload_video, name="upload_video"),
     path("<int:canvas_id>/delete/", views.delete_canvas, name="delete_canvas"),
+    path("<int:canvas_id>/set-roi/", views.set_roi, name="set_roi"),
 ]
