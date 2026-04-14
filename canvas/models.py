@@ -63,16 +63,21 @@ class AnalysisResult(models.Model):
 
     # Ringkasan
     duration = models.FloatField()
-    total_frames = models.IntegerField()
+    total_frames = models.IntegerField(null=True, blank=True)
     average_activity = models.FloatField()
 
     # Aktivitas
     max_activity = models.FloatField()
-    max_time = models.FloatField()
+    max_time = models.FloatField(null=True, blank=True)
     min_activity = models.FloatField()
-    peak_start = models.FloatField()
-    peak_end = models.FloatField()
+    peak_time = models.FloatField(null=True, blank=True)
+    peak_start = models.FloatField(null=True, blank=True)
+    peak_end = models.FloatField(null=True, blank=True)
 
     # Integral
     total_integral = models.FloatField()
     method = models.CharField(max_length=50, default="Riemann Sum")
+
+    # JSON Data for graph and heatmap
+    graph_data = models.JSONField(null=True, blank=True)
+    heatmap = models.JSONField(null=True, blank=True)

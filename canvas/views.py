@@ -5,6 +5,7 @@ from django.views.decorators.http import require_http_methods
 
 from .models import Canvas
 from .services import create_canvas_with_video
+from .services import process_video
 
 
 @require_http_methods(["GET"])
@@ -97,3 +98,20 @@ def set_roi(request, canvas_id):
     video.save(update_fields=["status"])
 
     return JsonResponse({"status": "success", "canvas_id": canvas.id})
+
+
+@require_http_methods(["POST"])
+def analyze(request, canvas_id):
+    try:
+        result = process_video(canvas_id)
+
+        return JsonResponse({
+            "status": "success",
+            "data": result
+        })
+
+    except Exception as e:
+        return JsonResponse({
+            "status": "error",
+            "message": str(e)
+        }, status=500)

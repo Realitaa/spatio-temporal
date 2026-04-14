@@ -10,4 +10,5 @@ urlpatterns = [
     path("upload/", views.upload_video, name="upload_video"),
     path("<int:canvas_id>/delete/", views.delete_canvas, name="delete_canvas"),
     path("<int:canvas_id>/set-roi/", views.set_roi, name="set_roi"),
+    path("<int:canvas_id>/analyze/", views.analyze, name="analyze"),
 ]
