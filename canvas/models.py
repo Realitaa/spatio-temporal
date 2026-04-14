@@ -6,7 +6,11 @@ from django.db import models
 
 def random_video_filename(instance, filename):
     ext = os.path.splitext(filename)[1]
-    return f"uploads/{uuid.uuid4().hex}{ext}"
+    return f"uploads/videos/{uuid.uuid4().hex}{ext}"
+
+def random_thumbnails_filename(instance, filename):
+    ext = os.path.splitext(filename)[1]
+    return f"uploads/thumbnails/{uuid.uuid4().hex}{ext}"
 
 
 class Canvas(models.Model):
@@ -38,6 +42,7 @@ class Video(models.Model):
     )
 
     file = models.FileField(upload_to=random_video_filename, blank=True)
+    thumbnail = models.ImageField(upload_to=random_thumbnails_filename, null=True, blank=True)
 
     duration = models.FloatField(null=True, blank=True)  # detik
     total_frames = models.IntegerField(null=True, blank=True)
