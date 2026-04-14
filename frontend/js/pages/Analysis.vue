@@ -7,7 +7,10 @@ import Explanation from '../components/Explanation.vue'
 
 const props = defineProps({
   // is_processing: Boolean,
-  video_id: String
+  video_id: String,
+  canvas_name: String,
+  has_roi: Boolean,
+  thumbnail_url: String
 })
 
 const video_url = `/media/videos/${props.video_id}.mp4`
@@ -23,12 +26,12 @@ const data = {
 
 const is_processing = ref(false)
 const isROISelectionDialogOpen = ref(false)
-const thumbnailUrl = '/image.png'
+const thumbnailUrl = props.thumbnail_url
 
 onMounted(() => {
-  setTimeout(() => {
+  if (!props.has_roi) {
     isROISelectionDialogOpen.value = true
-  }, 1000)
+  }
 })
 </script>
 

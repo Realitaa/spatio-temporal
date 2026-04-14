@@ -19,8 +19,17 @@ def analysis(request, video_id):
     try:
         canvas_obj = Canvas.objects.get(id=video_id)
         canvas_name = canvas_obj.name
+        has_roi = all(
+            v is not None for v in [
+                canvas_obj.roi_x1,
+                canvas_obj.roi_y1,
+                canvas_obj.roi_x2,
+                canvas_obj.roi_y2
+            ]
+        )
     except Canvas.DoesNotExist:
         canvas_name = ""
+        has_roi = False
 
     return render(
         request,
@@ -28,5 +37,7 @@ def analysis(request, video_id):
         {
             "video_id": video_id,
             "canvas_name": canvas_name,
+            "has_roi": has_roi,
+            "thumbnail_url": canvas_obj.video.thumbnail.url if canvas_obj.video.thumbnail else None
         },
     )

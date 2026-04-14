@@ -13,8 +13,8 @@ const isShowTutorial = ref(true)
 <template>
   <UModal v-model:open="isOpen" fullscreen :dismissible="false" title="Pilih Area Region of Interest (ROI)">
     <template #body>
-      <div class="relative w-full h-full overflow-hidden rounded-lg">
-        <img :src="thumbnailUrl" class="w-full h-full object-cover" alt="Thumbnail">
+      <div class="relative w-full h-full rounded-lg">
+        <img :src="thumbnailUrl" class="w-full h-full object-contain" alt="Thumbnail">
         
         <ROISelectionTutorial
           v-if="isShowTutorial"

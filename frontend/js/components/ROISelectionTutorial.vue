@@ -39,14 +39,14 @@ onUnmounted(() => {
 
 <template>
   <div class="absolute inset-0 z-20 flex flex-col items-center justify-between p-12 overflow-hidden">
-    <div class="z-30 text-center space-y-2">
+    <div class="z-30 text-center space-y-2 rounded-3xl border border-primary bg-black/80 p-4">
       <h1 class="text-3xl font-semibold text-white">Klik dan Seret untuk Memilih Area Region of Interest</h1>
       <p class="text-white">Region of Interest (ROI) adalah area yang akan diproses agar dapat dianalisis untuk memperoleh data aktivitas manusia</p>
     </div>
 
     <div class="absolute inset-0 z-10 pointer-events-none overflow-hidden">
       <div
-        class="border-4 border-green-400 top-40 left-65 absolute ring-3000 ring-black/50 shadow-2xl"
+        class="border-4 border-green-400 top-[19%] left-[16%] absolute ring-3000 ring-black/50 shadow-2xl"
         :style="{ width: example_width, height: example_height }"
       >
         <UIcon name="whh:cursor" class="size-10 text-white absolute -bottom-11 -right-9" />

@@ -7,10 +7,8 @@ from .models import Canvas
 from .services import create_canvas_with_video
 
 
+@require_http_methods(["GET"])
 def list_canvases(request):
-    if request.method != "GET":
-        return JsonResponse({"error": "Method not allowed"}, status=405)
-
     canvases = Canvas.objects.order_by("-created_at").values("id", "name", "created_at")
     return JsonResponse({"canvases": list(canvases)})
 
@@ -37,10 +35,8 @@ def rename_canvas(request, canvas_id):
     return JsonResponse({"id": canvas.id, "name": canvas.name})
 
 
+@require_http_methods(["POST"])
 def upload_video(request):
-    if request.method != "POST":
-        return JsonResponse({"error": "Method not allowed"}, status=405)
-
     file = request.FILES.get("video")
 
     if not file:
@@ -51,15 +47,16 @@ def upload_video(request):
     canvas = result["canvas"]
     video = result["video"]
 
-    return JsonResponse(
-        {"canvas_id": canvas.id, "video_id": video.id, "video_url": video.file.url}
-    )
+    return JsonResponse({
+        "canvas_id": canvas.id,
+        "video_id": video.id,
+        "video_url": video.file.url,
+        "thumbnail_url": video.thumbnail.url if video.thumbnail else None
+    })
 
 
+@require_http_methods(["DELETE"])
 def delete_canvas(request, canvas_id):
-    if request.method != "DELETE":
-        return JsonResponse({"error": "Method not allowed"}, status=405)
-
     try:
         canvas = Canvas.objects.get(id=canvas_id)
     except Canvas.DoesNotExist:
