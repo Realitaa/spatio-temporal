@@ -28,6 +28,7 @@ def analysis(request, video_id):
             analysis_result = {
                 "summary": {
                     "duration": analysis_obj.duration,
+                    "fps": video.fps,
                     "total_activity": analysis_obj.total_integral,
                     "average": analysis_obj.average_activity,
                     "max": analysis_obj.max_activity,

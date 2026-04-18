@@ -15,7 +15,7 @@ const items = computed(() => {
       title: 'Ringkasan',
       data: [
         { label: 'Durasi', value: props.data.duration },
-        { label: 'Frame', value: props.data.frame_count },
+        { label: 'FPS', value: props.data.fps },
         { label: 'Rata-rata', value: props.data.average_intensity }
       ]
     },

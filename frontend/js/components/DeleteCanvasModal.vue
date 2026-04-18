@@ -21,7 +21,7 @@ async function deleteCanvas() {
   try {
     await canvasStore.deleteCanvas(props.canvasId);
     open.value = false;
-    router.visit("/canvas");
+    router.visit("/canvas/");
   } catch (e) {
     console.error(e);
   } finally {
@@ -32,38 +32,36 @@ async function deleteCanvas() {
 
 <template>
   <UModal v-model:open="open">
-    <template #content>
-      <UModalHeader>
-        <template #title>
-          <span class="text-base font-bold">Hapus Kanvas</span>
-        </template>
-      </UModalHeader>
+      <template #header>
+        <span class="text-base font-bold">Hapus Kanvas</span>
+      </template>
 
-      <UModalBody>
+      <template #body>
         <p class="text-sm text-muted">
           Apakah Anda yakin ingin menghapus kanvas ini? Tindakan ini tidak dapat
           dibatalkan.
         </p>
-      </UModalBody>
+      </template>
 
-      <UModalFooter class="justify-end gap-2">
-        <UButton
-          color="neutral"
-          variant="ghost"
-          :disabled="isDeleting"
-          @click="open = false"
-        >
-          Batal
-        </UButton>
-        <UButton
-          color="error"
-          icon="i-lucide-trash-2"
-          :loading="isDeleting"
-          @click="deleteCanvas"
-        >
-          Hapus
-        </UButton>
-      </UModalFooter>
-    </template>
+      <template #footer>
+        <div class="flex w-full justify-end gap-2">
+          <UButton
+            color="neutral"
+            variant="ghost"
+            :disabled="isDeleting"
+            @click="open = false"
+          >
+            Batal
+          </UButton>
+          <UButton
+            color="error"
+            icon="i-lucide-trash-2"
+            :loading="isDeleting"
+            @click="deleteCanvas"
+          >
+            Hapus
+          </UButton>
+        </div>
+      </template>
   </UModal>
 </template>

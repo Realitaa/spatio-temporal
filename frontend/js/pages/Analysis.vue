@@ -29,6 +29,7 @@ function setupData(data) {
   const summary = data.summary
   insightData.value = {
     duration: `${summary.duration.toFixed(2)} detik`,
+    fps: `${summary.fps.toFixed(0)} fps`,
     frame_count: '-',
     average_intensity: `${summary.average.toFixed(2)} unit/detik`,
     max_intensity: `${summary.max.toFixed(2)}`,

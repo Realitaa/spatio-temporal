@@ -44,6 +44,7 @@ class Video(models.Model):
     file = models.FileField(upload_to=random_video_filename, blank=True)
     thumbnail = models.ImageField(upload_to=random_thumbnails_filename, null=True, blank=True)
 
+    fps = models.FloatField(null=True, blank=True)
     duration = models.FloatField(null=True, blank=True)  # detik
     total_frames = models.IntegerField(null=True, blank=True)
 

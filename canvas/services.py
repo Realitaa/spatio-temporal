@@ -22,6 +22,9 @@ def generate_thumbnail(video):
     if not cap.isOpened():
         return
 
+    # Get FPS
+    video.fps = cap.get(cv2.CAP_PROP_FPS)
+
     # Extract video dimensions
     video.width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     video.height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
@@ -157,6 +160,7 @@ def process_video(canvas_id):
     result = {
         "summary": {
             "duration": float(duration),
+            "fps": float(fps),
             "total_activity": real_total,
             "average": avg_val,
             "max": max_val,
