@@ -28,14 +28,14 @@ const graphData = ref(null)
 function setupData(data) {
   const summary = data.summary
   insightData.value = {
-    duration: `${summary.duration.toFixed(2)} detik`,
+    duration: `${summary.duration.toFixed(0)} detik`,
     fps: `${summary.fps.toFixed(0)} fps`,
     frame_count: '-',
-    average_intensity: `${summary.average.toFixed(2)} unit/detik`,
-    max_intensity: `${summary.max.toFixed(2)}`,
-    min_intensity: `${summary.min.toFixed(2)}`,
-    peak_time: `detik ke-${summary.peak_time.toFixed(2)}`,
-    total_intensity: `${summary.total_activity.toFixed(2)} unit`
+    average_intensity: `${summary.average.toFixed(0)} unit/detik`,
+    max_intensity: `${summary.max.toFixed(0)}`,
+    min_intensity: `${summary.min.toFixed(0)}`,
+    peak_time: `detik ke-${summary.peak_time.toFixed(0)}`,
+    total_intensity: `${summary.total_activity.toFixed(0)} unit`
   }
   graphData.value = data.graph
 }

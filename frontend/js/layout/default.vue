@@ -58,18 +58,18 @@ const menu = [
     icon: "i-lucide-pencil",
     to: "/canvas/",
   },
-  {
-    label: "Dataset",
-    icon: "i-lucide-database",
-  },
-  {
-    label: "Dokumentasi",
-    icon: "i-lucide-book",
-  },
-  {
-    label: "Tentang",
-    icon: "i-lucide-info",
-  },
+  // {
+  //   label: "Dataset",
+  //   icon: "i-lucide-database",
+  // },
+  // {
+  //   label: "Dokumentasi",
+  //   icon: "i-lucide-book",
+  // },
+  // {
+  //   label: "Tentang",
+  //   icon: "i-lucide-info",
+  // },
 ];
 
 const canvasMenuItems = computed(() =>

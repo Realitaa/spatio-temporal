@@ -1,18 +1,12 @@
 <script setup>
 import { ref } from 'vue'
+import { heroImageBase64 } from '@/js/assets/hero-image-base64.js'
 
 const links = ref([
     {
         label: 'Mulai',
         to: '/canvas/',
         icon: 'i-lucide-square-play'
-    },
-    {
-        label: 'Pelajari lebih lanjut',
-        to: '/docs/',
-        color: 'neutral',
-        variant: 'subtle',
-        trailingIcon: 'i-lucide-arrow-right'
     }
 ])
 </script>
@@ -30,7 +24,7 @@ const links = ref([
             <UPageHero title="Spatio-Temporal Data Analysis"
                 description="Sistem analisis aktivitas manusia berbasis video menggunakan integral ganda dan pendekatan numerik untuk menghitung kepadatan aktivitas secara spatio-temporal."
                 headline="Kalkulus Integral" orientation="horizontal" :links="links">
-                <img src="https://learndjango.com/static/images/django50_welcome.png" alt="App screenshot"
+                <img :src="heroImageBase64" alt="App screenshot"
                     class="rounded-lg shadow-2xl ring ring-default" />
             </UPageHero>
         </div>
